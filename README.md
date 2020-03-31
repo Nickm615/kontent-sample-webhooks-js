@@ -1,17 +1,17 @@
-# Sample Kontent Webhook Handlers for Javasacript
+# Sample Kontent Webhook Handlers for Javascript
 
-This is a simple Express application that acts as an endpoint for Kentico Kontent webhooks. It implements the follwoing:
+This is a simple Express application that acts as an endpoint for Kentico Kontent webhooks. It implements the following
 
 * Validate notification signatures to ensure requests are from Kontent
-* Logs valid webhooks to simple database (powered by [LokiJS](http://techfort.github.io/LokiJS/))
-* Displays basic summary of recieved webhooks
+* Logs valid webhooks to a simple database (powered by [LokiJS](http://techfort.github.io/LokiJS/))
+* Displays a basic summary of received webhooks
 
 ## Requirements
 
 ## Setup and Running
 
 1. Clone the repository
-2. Create a `.env` file in the root with add a `WEBHOOK_SECRET` variable
+2. Create a `.env` file in the root with a `WEBHOOK_SECRET` variable
 
 ```
 WEBHOOK_SECRET=your_webhook_secret_will_go_here
@@ -29,7 +29,7 @@ npm start
 6. [Create a webhook in Kontent](https://docs.kontent.ai/tutorials/develop-apps/integrate/using-webhooks-for-automatic-updates#a-creating-a-webhook)
     1. Use one of the forwarding addresses for the webhook name and append one of the following:
         * For check-hash example: `/webhooks/check-hash`
-        * For delviery event sample: `/webhooks/delivery-event`
+        * For dedeliveryvent sample: `/webhooks/delivery-event`
     2. Copy the webhook secret to the `.env` file
 7. Perform actions that trigger your webhook
 8. Go to <http://localhost:3000> to see the log (it refreshes automatically after a few seconds)
