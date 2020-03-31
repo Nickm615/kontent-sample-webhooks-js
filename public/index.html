@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <title>Kontent Webhook Examples</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://vuejs.org/js/vue.js"></script>
+  </head>
+
+  <body>
+    <div class="container mx-auto">
+      <h1 class="text-2xl font-bold mb-4">Kontent Webhook Examples</h1>
+      <div id="app">
+        <div v-if="reports">
+          <div v-for="(report, index) in reports" :key="index">
+            <div
+              class="border-t-4 rounded-b px-4 py-3 shadow-md my-2"
+              :class="getReportWrapperClasses(report.endpoint, report.operation)"
+            >
+              <div class="flex justify-between">
+                <div class="font-bold">{{report.endpoint}}</div>
+                <div :class="getReportWrapperLightClass(report.endpoint, report.operation)">
+                  Created: {{report.created}}
+                </div>
+              </div>
+              <p>{{report.message}}</p>
+              <div v-if="report.endpoint === 'delivery-event'">
+                <ul class="list-disc list-inside" v-for="(item, index) in report.items" :key="index">
+                  <li>{{item.codename}} ({{item.language}})</li>
+                </ul>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          message: "Hello Vue!",
+          reports: null
+        },
+        created: function() {
+          this.message = "created";
+          this.getData();
+          setInterval(function () {
+            this.getData();
+          }.bind(this), 3000)
+        },
+        methods: {
+          getData: function() {
+            console.log("getData")
+            fetch("/webhooks")
+              .then(response => response.json())
+              .then(data => {
+                this.reports = data.reports.map(r => {
+                  const report = {
+                    endpoint: r.endpoint,
+                    message: r.message,
+                    operation: r.webhookBody.message.operation,
+                    created: r.webhookBody.message.created_timestamp,
+                    items: [...r.webhookBody.data.items]
+                  };
+                  return report;
+                });
+              });
+          },
+          getReportWrapperClasses: function(endpoint, operation) {
+            const checkHash = endpoint === "check-hash";
+            const deliveryEvent = endpoint === "delivery-event";
+
+            return {
+              "border-blue-600": checkHash,
+              "bg-blue-100": checkHash,
+              "text-blue-900": checkHash,
+              "border-green-600": deliveryEvent,
+              "bg-green-100": deliveryEvent,
+              "text-green-900": deliveryEvent
+            };
+          },
+          getReportWrapperLightClass(endpoint, operation) {
+            const checkHash = endpoint === "check-hash";
+            const deliveryEvent = endpoint === "delivery-event";
+
+            return {
+              "text-blue-600": checkHash,
+              "text-green-600": deliveryEvent
+            };
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
