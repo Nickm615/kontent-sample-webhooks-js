@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const database = require(`../utils/database`);
-const webhookHelper = require("wip-webhook-helper");
+const webhookHelper = require("@kentico/kontent-webhook-helper");
 
 const signatureHelper = new webhookHelper.SignatureHelper();
 const secret = process.env.WEBHOOK_SECRET;
