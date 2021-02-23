@@ -34,4 +34,3 @@ npm start
 7. Perform actions that trigger your webhook
 8. Go to <http://localhost:3000> to see the log (it refreshes automatically after a few seconds)
 
-![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-sample-webhooks-js?pixel)
