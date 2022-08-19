@@ -1,4 +1,8 @@
 # Sample Kontent Webhook Handlers for Javascript
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+## :warning: Archival Notice
+> This project has been archived and is no longer maintained.
+
 
 This is a simple Express application that acts as an endpoint for Kentico Kontent webhooks. It implements the following
 
